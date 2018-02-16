@@ -1,0 +1,4 @@
+class RestResponse{
+    public responseCode: number;
+    public message: string;
+}

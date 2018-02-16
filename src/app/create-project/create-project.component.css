@@ -1,0 +1,11 @@
+.clear {
+    margin: 15px;
+}
+.required {
+    color: red;
+    font-weight: bolder;
+}
+.btn-save{
+    cursor: pointer;
+    font-weight: bold
+}
