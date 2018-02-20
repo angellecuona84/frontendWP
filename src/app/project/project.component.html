@@ -8,6 +8,7 @@
       <th scope="col">Id</th>
       <th scope="col">Name</th>
       <th scope="col">Description</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
@@ -16,6 +17,10 @@
       <td>{{item.id}}</td>
       <td>{{item.name}}</td>
       <td>{{item.description}}</td>
+      <td>
+        <img src="../../assets/edit.png" class="editIcon" (click)="edit(item)">
+        <img src="../../assets/remove.png" class="editIcon" (click)="delete(item)">
+      </td> 
     </tr>
     
   </tbody>

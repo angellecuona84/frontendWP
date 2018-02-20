@@ -1,3 +1,7 @@
 .clear {
     padding: 10px 
 }
+
+.editIcon{
+    cursor: pointer;
+}

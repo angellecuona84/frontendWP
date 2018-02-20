@@ -15,6 +15,16 @@ export class ProjectService {
     });*/
     return this.http.get<ProjectModel[]>("http://localhost:8080/getProjects");
   }
+
+  public delete(project: ProjectModel): void{
+    this.http.post("http://localhost:8080/deleteProject", JSON.stringify(project)).subscribe();
+  }
+
+  public validate(project: ProjectModel): boolean {
+    let isValid = true;
+    return project.name != null;
+  }
+
   constructor(private http: HttpClient) {
 
    }

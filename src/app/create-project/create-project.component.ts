@@ -1,3 +1,4 @@
+import { StepModel } from './../models/step.model';
 import { ProjectComponent } from './../project/project.component';
 import { Router } from '@angular/router';
 import { ProjectModel } from './../models/project.model';
@@ -17,10 +18,21 @@ export class CreateProjectComponent implements OnInit {
 private project: ProjectModel;
 private isValid: boolean = true;
 private message: String = "";
+private steps: Array<StepModel>;
 
   constructor(private createProjectService: CreateProjectService, private router: Router) { 
-    this.project = new ProjectModel();
-    //this.project.name = "Angel";
+    var projectJson: string = sessionStorage.getItem("project");
+    
+    
+    if(projectJson){
+      this.project = JSON.parse(projectJson)
+      this.stepsByProject(this.project);
+      console.log(this.stepsByProject(this.project));
+      
+    }else{
+      this.project = new ProjectModel();
+    }
+    console.log(this.project);
   }
 
   ngOnInit() {
@@ -45,6 +57,20 @@ private message: String = "";
       this.message = "Project incomplete, missing required fields";
       this.isValid = false;
     }
+    sessionStorage.clear();
+  }
+
+
+  public stepsByProject(project: ProjectModel): Array<StepModel> { 
+    var result: Array<StepModel> = new Array();
+    let isValid = this.createProjectService.validate(this.project);
+    
+    if(isValid){
+      this.createProjectService.stepsByProject(this.project).subscribe(res => {
+       this.steps = res;
+      })
+    }
+    return result;
   }
 
 }

@@ -1,4 +1,6 @@
+import { StepModel } from './../models/step.model';
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router'
 
 import { ProjectService } from './project.service';
 import { ProjectModel } from '../models/project.model';
@@ -13,7 +15,8 @@ export class ProjectComponent implements OnInit {
 
 private projects: Array<ProjectModel>
 
-  constructor(private projectService: ProjectService) { }
+  constructor(private projectService: ProjectService,
+               private router: Router) { }
 
   ngOnInit() {
     this.loadProjects();
@@ -22,8 +25,18 @@ private projects: Array<ProjectModel>
   private loadProjects(): void{
     this.projectService.getProjects().subscribe(res => {
       this.projects = res;
-      console.log(this.projects);
     });
+    
+  }
+
+  public edit(project: ProjectModel): void {
+    sessionStorage.setItem("project", JSON.stringify(project));
+    this.router.navigate(['/createProjectComponent']);
+  }
+
+  public delete(project: ProjectModel): void {
+    this.projectService.delete(project);
+    this.loadProjects();
   }
 
 }

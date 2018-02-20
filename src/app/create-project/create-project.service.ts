@@ -1,3 +1,4 @@
+import { StepModel } from './../models/step.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs/Observable';
@@ -15,8 +16,11 @@ public validate(project: ProjectModel): boolean {
 }
 
 public saveOrUpdate(project: ProjectModel): Observable<RestResponse>{
-  project.id = 1;
   return this.http.post<RestResponse>("http://localhost:8080/saveOrUpdate",project);
+}
+
+stepsByProject(project: ProjectModel): Observable<StepModel[]> {
+  return this.http.post<StepModel[]>("http://localhost:8080/getOrderStepByProject", project);
 }
 
 }
