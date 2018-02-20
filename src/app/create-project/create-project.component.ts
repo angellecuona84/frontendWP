@@ -41,9 +41,10 @@ private steps: Array<StepModel>;
 
   public saveOrUpdate(): void { 
     let isValid = this.createProjectService.validate(this.project);
-    console.log(this.project);
     
     if(isValid){
+      console.log(this.steps);
+      this.project.steps = this.steps;
       this.createProjectService.saveOrUpdate(this.project).subscribe(res => {
         let r: RestResponse = res;
         if(r.responseCode = OK){
@@ -71,6 +72,10 @@ private steps: Array<StepModel>;
       })
     }
     return result;
+  }
+
+  public viewProject(): void{
+    this.router.navigate(['/projectComponent']);
   }
 
 }
